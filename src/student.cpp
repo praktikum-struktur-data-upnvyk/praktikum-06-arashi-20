@@ -72,23 +72,49 @@ string display(const Queue& q) {
 // SOAL 1 — enqueue()                                                  35 poin
 // =============================================================================
 bool enqueue(Queue& q, int nomor) {
-    // TODO: kerjakan di sini
-    return false;
+    Node* Baru = new Node{nomor, NULL};
+
+    if (q.depan == NULL) {
+        q.depan = Baru;
+    } else {
+        q.belakang->next = Baru;
+    }
+    q.belakang = Baru;
+
+    return true;
 }
 
 // =============================================================================
 // SOAL 2 — dequeue()                                                  40 poin
 // =============================================================================
 bool dequeue(Queue& q, int& nomor) {
-    // TODO: kerjakan di sini
-    return false;
+    if (q.depan == NULL) return false;
+
+    Node* hapus = q.depan;
+    nomor = hapus->data;
+    q.depan = hapus->next;
+
+    if (q.depan == NULL) {
+        q.belakang = NULL;
+    }
+
+    delete hapus;
+    return true;
 }
 
 // =============================================================================
 // SOAL 3 — clear()                                                    25 poin
 // =============================================================================
 void clear(Queue& q) {
-    // TODO: kerjakan di sini
+    Node* sekarang = q.depan;
+    while (sekarang != NULL) {
+        Node* berikutnya = sekarang->next;
+        delete sekarang;
+        sekarang = berikutnya;
+    }
+
+    q.depan = NULL;
+    q.belakang = NULL;
 }
 
 // =============================================================================
